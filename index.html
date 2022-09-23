@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Gallery by Amazingca</title>
+    <link rel="icon" href="https://cdn.amazingca.dev/assets/media/thumbnail.ico">
+    <meta name="viewport" content="width=device-width, initial-scale: 1, maximum-scale=1">
+    <meta property="description" content="A gallery curated by Amazingca">
+  </head>
+<body>
+  <div class="flex-row">
+      <br>
+      <div style="justify-content: space-between;">
+        <br>
+        <div id="title">The Amazingca Gallery</div>
+        <br>
+      </div>
+    <br>
+    <br>
+  </div>
+  <div class="flex-row" id="gallerymedia"><br><strong>Loading gallery...</strong><br></div>
+</body>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Shrikhand&display=swap');
+
+    .flex-row {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    #title {
+      font-family: 'Shrikhand', cursive;
+      text-align: center;
+      font-size: 2em;
+      letter-spacing: 0.03em;
+      -webkit-user-select: none;
+    }
+
+    .off {
+      display: none;
+    }
+  </style>
+  <script>
+    var entries;
+    var push = "<br><div style='flex-wrap: wrap; display: flex; justify-content: center;'>";
+    insert();
+    async function insert() {
+      try {
+        entries = await fetch("https://cdn.amazingca.dev/assets/gallery/publicentries.txt", {method: "GET"}).then((r) => r.text());
+        entries = JSON.parse(entries);
+
+        for (var i = 0; i < Object.keys(entries).length; i++) {
+
+          push = push + `<img src="https://cdn.amazingca.dev/assets/gallery/${entries[i][0]}" width="400px" height="400px" style="margin: 0.25em;" id="g${i}">`;
+
+          if (((i + 1) % 2) === 0) {
+            push = push + "<div style='width: 100%; height: 1px;'></div>";
+          }
+        }
+
+        push = push + "</div><br>";
+
+        document.getElementById("gallerymedia").innerHTML = push;
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  </script>
+<html>
