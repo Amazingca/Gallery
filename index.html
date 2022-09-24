@@ -43,7 +43,7 @@
   <script>
     var entries;
     var push = "<br><div style='flex-wrap: wrap; display: flex; justify-content: center;'>";
-    window.onload = async function() {
+    setTimeout(async function() {
       try {
         entries = await fetch("https://cdn.amazingca.dev/assets/gallery/publicentries.txt", {method: "GET"}).then((r) => r.text());
         entries = JSON.parse(entries);
@@ -63,6 +63,6 @@
       } catch (e) {
         console.log(e);
       }
-    }
+    }, 500);
   </script>
 <html>
