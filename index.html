@@ -43,26 +43,30 @@
   <script>
     var entries;
     var push = "<br><div style='flex-wrap: wrap; display: flex; justify-content: center;'>";
-    setTimeout(async function() {
+    async function() {
       try {
         entries = await fetch("https://cdn.amazingca.dev/assets/gallery/publicentries.txt", {method: "GET"}).then((r) => r.text());
-        entries = JSON.parse(entries);
+        
+        setTimeout(function(){
 
-        for (var i = 0; i < Object.keys(entries).length; i++) {
+          entries = JSON.parse(entries);
 
-          push = push + `<img src="https://cdn.amazingca.dev/assets/gallery/${entries[i][0]}" width="350px" height="350px" style="margin: 0.25em;" id="g${i}">`;
+          for (var i = 0; i < Object.keys(entries).length; i++) {
 
-          if (((i + 1) % 2) === 0) {
-            push = push + "<div style='width: 100%; height: 1px;'></div>";
+            push = push + `<img src="https://cdn.amazingca.dev/assets/gallery/${entries[i][0]}" width="350px" height="350px" style="margin: 0.25em;" id="g${i}">`;
+
+            if (((i + 1) % 2) === 0) {
+              push = push + "<div style='width: 100%; height: 1px;'></div>";
+            }
           }
-        }
 
-        push = push + "</div><br>";
+          push = push + "</div><br>";
 
-        document.getElementById("gallerymedia").innerHTML = push;
+          document.getElementById("gallerymedia").innerHTML = push;
+        }, 500);
       } catch (e) {
         console.log(e);
       }
-    }, 500);
+    }
   </script>
 <html>
