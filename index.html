@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html id="html">
   <head>
     <title>Gallery by Amazingca</title>
     <link rel="icon" href="https://cdn.amazingca.dev/assets/media/thumbnail.ico">
@@ -85,6 +85,10 @@
       display: none;
     }
 
+    .disabled {
+      overflow: hidden;
+    }
+
     html, body {
       margin:0;
       padding:0;
@@ -125,10 +129,14 @@
 
         document.getElementById("imgview").innerHTML = `<img src="https://cdn.amazingca.dev/assets/gallery/${entries[index][0]}" width="300px" style="margin: 1em; left: 40px;"><label id="imageLabel">${entries[index][1]}</label>`;
         document.getElementById("imageViewer").classList.remove("off");
+
+        document.getElementById("html").classList.add("disabled");
       } else {
 
         document.getElementById("imgview").innerHTML = `<img src="https://cdn.amazingca.dev/assets/gallery/${entries[index][0]}" width="45%" style="margin: 1em; left: 40px;"><label id="imageLabel">${entries[index][1]}</label>`;
         document.getElementById("imageViewer").classList.remove("off");
+
+        document.getElementById("html").classList.add("disabled");
       }
     }
   </script>
