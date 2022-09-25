@@ -18,6 +18,10 @@
     <br>
   </div>
   <div class="flex-row" id="gallerymedia"><br><strong>Loading gallery...</strong><br></div>
+  <div class="off" id="imageViewer">
+    <button onclick="this.parentElement.classList.add('off');" id="viewClose">Close Viewer</button>
+    <div class="push" id="imgview"></div>
+  </div>
 </body>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Shrikhand&display=swap');
@@ -28,6 +32,21 @@
       justify-content: space-between;
     }
 
+    .push {
+      flex-wrap: wrap;
+      display: flex;
+      justify-content: center;
+    }
+
+    #viewClose {
+      margin-left: 6%;
+      margin-top: 7%;
+      border-radius: 5px;
+      border-width: 0px;
+      background-color: #eeeeee;
+      font-family: Verdana, sans-serif;
+    }
+
     #title {
       font-family: 'Shrikhand', cursive;
       text-align: center;
@@ -36,24 +55,55 @@
       -webkit-user-select: none;
     }
 
+    #imageLabel {
+      margin: 1em;
+      font-family: Verdana, sans-serif;
+      line-height: 2em;
+    }
+
+    #imgview {
+      background-color: #eeeeee;
+      border-radius: 5px;
+      border-width: 0px;
+      margin-top: 1%;
+      margin-bottom: 8%;
+      margin-left: 6%;
+      margin-right: 6%;
+    }
+
+    #imageViewer {
+      margin: 0px;
+      background-color: rgb(50, 50, 50, 0.6);
+      z-index: 1;
+      top: 0px;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+    }
+
     .off {
       display: none;
+    }
+
+    html, body {
+      margin:0;
+      padding:0;
     }
   </style>
   <script>
     var entries;
-    var push = "<br><div style='flex-wrap: wrap; display: flex; justify-content: center;'>";
+    var push = "<br><div class='push'>";
     window.onload = async function() {
       try {
         entries = await fetch("https://cdn.amazingca.dev/assets/gallery/publicentries.txt", {method: "GET"}).then((r) => r.text());
-        
+
         setTimeout(function(){
 
           entries = JSON.parse(entries);
 
           for (var i = 0; i < Object.keys(entries).length; i++) {
 
-            push = push + `<img src="https://cdn.amazingca.dev/assets/gallery/${entries[i][0]}" width="350px" height="350px" style="margin: 0.25em;" id="g${i}">`;
+            push = push + `<img src="https://cdn.amazingca.dev/assets/gallery/${entries[i][0]}" onclick="view(${i})" width="350px" height="350px" style="margin: 0.25em;" >`;
 
             if (((i + 1) % 2) === 0) {
               push = push + "<div style='width: 100%; height: 1px;'></div>";
@@ -67,6 +117,12 @@
       } catch (e) {
         console.log(e);
       }
+    }
+
+    function view(index) {
+
+      document.getElementById("imgview").innerHTML = `<img src="https://cdn.amazingca.dev/assets/gallery/${entries[index][0]}" width="55%" style="margin: 1em; left: 40px;"><label id="imageLabel">${entries[index][1]}</label>`;
+      document.getElementById("imageViewer").classList.remove("off");
     }
   </script>
 <html>
